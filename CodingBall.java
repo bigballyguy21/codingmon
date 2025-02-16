@@ -1,16 +1,20 @@
-//Codingball java example
 public class CodingBall {
     // Attributes
     private String name;
     private boolean isObtained;
     private boolean isThrown;
     private String content;
+    private double successRate; // Added for capture mechanics
+    private String type; // Added for inventory display
 
+    // Constructors
     public CodingBall() {
         this.name = "Basic CodingBall";
         this.isObtained = false;
         this.isThrown = false;
         this.content = "Empty";
+        this.successRate = 0.5; // Default success rate
+        this.type = "Basic"; // Default type
     }
 
     public CodingBall(String name) {
@@ -18,6 +22,8 @@ public class CodingBall {
         this.isObtained = false;
         this.isThrown = false;
         this.content = "Empty";
+        this.successRate = 0.5; // Default success rate
+        this.type = "Basic"; // Default type
     }
 
     public CodingBall(String name, String content) {
@@ -25,8 +31,20 @@ public class CodingBall {
         this.isObtained = false;
         this.isThrown = false;
         this.content = content;
+        this.successRate = 0.5; // Default success rate
+        this.type = "Basic"; // Default type
     }
 
+    public CodingBall(String name, double successRate, String type) {
+        this.name = name;
+        this.isObtained = false;
+        this.isThrown = false;
+        this.content = "Empty";
+        this.successRate = successRate; // Custom success rate
+        this.type = type; // Custom type
+    }
+
+    // Methods
     public void pickUp() {
         if (!isObtained) {
             isObtained = true;
@@ -80,7 +98,7 @@ public class CodingBall {
     public void use() {
         if (isObtained) {
             if (content.equals("Empty")) {
-                System.out.println("You can't use an empty Codingbal");
+                System.out.println("You can't use an empty CodingBall!");
             } else {
                 System.out.println("You released the " + content + " from the " + name + "!");
                 content = "Empty";
@@ -90,6 +108,7 @@ public class CodingBall {
         }
     }
 
+    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -104,5 +123,22 @@ public class CodingBall {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    // Added methods for game mechanics
+    public double getSuccessRate() {
+        return successRate;
+    }
+
+    public void setSuccessRate(double successRate) {
+        this.successRate = successRate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
