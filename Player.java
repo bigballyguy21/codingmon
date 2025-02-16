@@ -1,26 +1,30 @@
-public class Player {  //Katie's Code
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player {
     // Instance variables
-    String name;
-    int health;
-    String codingmons; // Player's collection of Codingmons
-    String inventory; // Inventory for CodingBalls
-    String location; // Current room/location
+    private String name;
+    private int health;
+    private List<Codingmon> codingmons; // Player's collection of Codingmons
+    private List<CodingBall> inventory; // Inventory for CodingBalls
+    private String location; // Current room/location
 
     // Constructor
     public Player(String name) {
         this.name = name;
         this.health = 100; // Default health value
-        this.codingmons = codingmon ;
-        this.inventory = inv;
+        this.codingmons = new ArrayList<>();
+        this.inventory = new ArrayList<>();
         this.location = "Starting Area"; // Default starting location
     }
 
-    // Methods
+    // Move to a new location
     public void move(String newLocation) {
         this.location = newLocation;
         System.out.println(name + " moved to " + location);
     }
 
+    // Capture a Codingmon
     public void captureCodingmon(Codingmon codingmon, CodingBall ball) {
         if (Math.random() < ball.getSuccessRate()) {
             codingmons.add(codingmon);
@@ -30,6 +34,7 @@ public class Player {  //Katie's Code
         }
     }
 
+    // Use a CodingBall
     public void useCodingBall(CodingBall ball) {
         if (inventory.contains(ball)) {
             inventory.remove(ball);
@@ -39,6 +44,7 @@ public class Player {  //Katie's Code
         }
     }
 
+    // Show inventory
     public void showInventory() {
         System.out.println(name + "'s Inventory:");
         for (CodingBall ball : inventory) {
@@ -46,6 +52,7 @@ public class Player {  //Katie's Code
         }
     }
 
+    // Show Codingmons
     public void showCodingmons() {
         System.out.println(name + "'s Codingmons:");
         for (Codingmon codingmon : codingmons) {
@@ -68,5 +75,13 @@ public class Player {  //Katie's Code
 
     public String getLocation() {
         return location;
+    }
+
+    public List<Codingmon> getCodingmons() {
+        return codingmons;
+    }
+
+    public List<CodingBall> getInventory() {
+        return inventory;
     }
 }
