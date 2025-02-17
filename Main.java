@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -55,7 +56,7 @@ public class Main {
 
             // Battle cry at the end of the turn
             playerCodingmon.battleCry();
-            ((Charmander) wildCodingmon).battleCry();
+            wildCodingmon.battleCry();
         }
 
         input.close();
