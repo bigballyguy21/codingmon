@@ -8,8 +8,8 @@ class Charmander extends Pokemon {
         addMove(new Move("Take Down", 30, "Normal"));
     }
 
+
     //Override the battlecry method for Charmander
     public void battleCry() {
         System.out.println(name + " says: CHARMANDER!");
     }
-}
