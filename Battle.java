@@ -1,34 +1,25 @@
 public class Battle {
 
-    // Method to start the battle
-    public void battle(Pokemon playerPokemon, Pokemon wildPokemon) {
-        System.out.println(playerPokemon.getName() + " is fighting " + wildPokemon.getName() + "!");
+    public void battle(Codingmon playerCodingmon, Codingmon wildCodingmon) {
+        System.out.println(playerCodingmon.getName() + " is fighting " + wildCodingmon.getName() + "!");
         System.out.println("Battle Start!\n");
 
-        // Simulate the battle with basic attack rounds
-        while (playerPokemon.getHp() > 0 && wildPokemon.getHp() > 0) {
-            // Player attacks first
-            int playerDamage = playerPokemon.attack(wildPokemon);
-            System.out.println(playerPokemon.getName() + " dealt " + playerDamage + " damage!");
+        while (playerCodingmon.getHp() > 0 && wildCodingmon.getHp() > 0) {
+            int playerDamage = playerCodingmon.attack(wildCodingmon);
+            System.out.println(playerCodingmon.getName() + " dealt " + playerDamage + " damage!");
+            wildCodingmon.setHp(wildCodingmon.getHp() - playerDamage);
 
-            // Reduce wild Pokémon's health by the damage
-            wildPokemon = new Pokemon(wildPokemon.getName(), wildPokemon.lvl, wildPokemon.getHp() -
-                    playerDamage, wildPokemon.attack, wildPokemon.defense);
-
-            if (wildPokemon.getHp() <= 0) {
-                System.out.println(wildPokemon.getName() + " has fainted!");
+            if (wildCodingmon.getHp() <= 0) {
+                System.out.println(wildCodingmon.getName() + " has fainted!");
                 break;
             }
 
-            // Wild Pokémon attacks
-            int wildDamage = wildPokemon.attack(playerPokemon);
-            System.out.println(wildPokemon.getName() + " dealt " + wildDamage + " damage!");
+            int wildDamage = wildCodingmon.attack(playerCodingmon);
+            System.out.println(wildCodingmon.getName() + " dealt " + wildDamage + " damage!");
+            playerCodingmon.setHp(playerCodingmon.getHp() - wildDamage);
 
-            // Reduce player's Pokémon health by the damage
-            playerPokemon = new Pokemon(playerPokemon.getName(), playerPokemon.level, playerPokemon.getHealthPoints() - wildDamage, playerPokemon.attack, playerPokemon.defense);
-
-            if (playerPokemon.getHp() <= 0) {
-                System.out.println(playerPokemon.getName() + " has fainted!");
+            if (playerCodingmon.getHp() <= 0) {
+                System.out.println(playerCodingmon.getName() + " has fainted!");
                 break;
             }
 
