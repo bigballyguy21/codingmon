@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-//Katie
+
 public class Player {
     // Instance variables
     private String name;
