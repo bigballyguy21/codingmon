@@ -52,10 +52,13 @@ class Codingmon {
         System.out.println("HP: " + hp);
         System.out.println("Attack Power: " + attackPower);
     }
+
+    public void battleCry() {
+    }
 }
 
-class Pikachu extends Codingmon {
-    public Pikachu() {
+class pikachu extends Codingmon {
+    public pikachu(int i) {
         super("Pikachu", 100, 20); // Example values
     }
 
@@ -66,8 +69,8 @@ class Pikachu extends Codingmon {
     }
 }
 
-class Charmander extends Codingmon {
-    public Charmander() {
+class charmander extends Codingmon {
+    public charmander(int i) {
         super("Charmander", 80, 18); // Example values
     }
 
@@ -75,6 +78,9 @@ class Charmander extends Codingmon {
     public int attack(Codingmon target) {
         System.out.println("Charmander used Flamethrower!");
         return super.attack(target); // Calls the base attack logic
+    }
+
+    public void battleCry() {
     }
 }
 
@@ -84,8 +90,8 @@ public class CodingmonBattle {
         Random rand = new Random();
 
         // Create player and wild Codingmon (Pikachu vs Charmander)
-        Codingmon playerCodingmon = new Pikachu(); // Example: Player's Pikachu
-        Codingmon wildCodingmon = new Charmander(); // Example: Wild Charmander
+        Codingmon playerCodingmon = new pikachu(5); // Example: Player's Pikachu
+        Codingmon wildCodingmon = new charmander(5); // Example: Wild Charmander
 
         // Show initial info of both Codingmons
         System.out.println("Player's Pokemon:");
@@ -132,4 +138,3 @@ public class CodingmonBattle {
         }
     }
 }
-
