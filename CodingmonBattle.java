@@ -2,58 +2,79 @@ import java.util.Random;
 import java.util.Scanner;
 
 class Moves {
-    public String movenames;
-    public int damageamount;
+    public String moveName;
+    public int damageAmount;
 
-    public Moves(String name, int damageamount) {
-        this.movenames = name;
-        this.damageamount = damageamount;
+    public Moves(String name, int damageAmount) {
+        this.moveName = name;
+        this.damageAmount = damageAmount;
     }
 
-    public String getMovenames() {
-        return movenames;
+    public String getMoveName() {
+        return moveName;
     }
 
-    public int getDamageamount() {
-        return damageamount;
+    public int getDamageAmount() {
+        return damageAmount;
     }
 }
 
 class Codingmon {
     private String name;
     private int hp;
-    private String enemyname;
-    private int enemyhp;
+    private int attackPower;
 
-    public Codingmon(String name, int hp, String enemyname, int enemyhp) {
+    public Codingmon(String name, int hp, int attackPower) {
         this.name = name;
         this.hp = hp;
-        this.enemyname = enemyname;
-        this.enemyhp = enemyhp;
+        this.attackPower = attackPower;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getHp() {
-        return hp;
+    public int attack(Codingmon target) {
+        return attackPower; // Simple attack logic
     }
 
     public void setHp(int hp) {
         this.hp = hp;
     }
 
-    public String getEnemyname() {
-        return enemyname;
+    public int getHp() {
+        return hp;
     }
 
-    public int getEnemyhp() {
-        return enemyhp;
+    public String getName() {
+        return name;
     }
 
-    public void setEnemyhp(int enemyhp) {
-        this.enemyhp = enemyhp;
+    // Add the displayInfo method here
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("HP: " + hp);
+        System.out.println("Attack Power: " + attackPower);
+    }
+}
+
+class Pikachu extends Codingmon {
+    public Pikachu() {
+        super("Pikachu", 100, 20); // Example values
+    }
+
+    @Override
+    public int attack(Codingmon target) {
+        System.out.println("Pikachu used Thunderbolt!");
+        return super.attack(target); // Calls the base attack logic
+    }
+}
+
+class Charmander extends Codingmon {
+    public Charmander() {
+        super("Charmander", 80, 18); // Example values
+    }
+
+    @Override
+    public int attack(Codingmon target) {
+        System.out.println("Charmander used Flamethrower!");
+        return super.attack(target); // Calls the base attack logic
     }
 }
 
@@ -62,50 +83,53 @@ public class CodingmonBattle {
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
 
-        Codingmon codingmon = new Codingmon("Pikachu", 400, "Zigzagoon", 400);
+        // Create player and wild Codingmon (Pikachu vs Charmander)
+        Codingmon playerCodingmon = new Pikachu(); // Example: Player's Pikachu
+        Codingmon wildCodingmon = new Charmander(); // Example: Wild Charmander
 
-        while (codingmon.getHp() > 0 && codingmon.getEnemyhp() > 0) {
-            System.out.println(codingmon.getName() + "'s turn, Choose a move by entering 1, 2, or 3. Move 1 hits for 100 at 25% chance, Move 2 hits for 50 at a 75% chance, and Move 3 hits for 75 at a 50% chance");
+        // Show initial info of both Codingmons
+        System.out.println("Player's Pokemon:");
+        playerCodingmon.displayInfo();
+        System.out.println("Wild Pokemon:");
+        wildCodingmon.displayInfo();
+
+        // Battle loop
+        while (playerCodingmon.getHp() > 0 && wildCodingmon.getHp() > 0) {
+            System.out.println(playerCodingmon.getName() + "'s turn. Choose a move: ");
+            System.out.println("1. Attack with Thunderbolt (Pikachu) / Flamethrower (Charmander)");
             int choice = input.nextInt();
             int selfAttackChance = rand.nextInt(100);
-            int damageamount = 0;
+            int damageAmount = 0;
 
-            if (choice == 1 && selfAttackChance < 25) {
-                damageamount = 100;
-                System.out.println(codingmon.getEnemyname() + " was hit for 100!");
-            } else if (choice == 2 && selfAttackChance < 75) {
-                damageamount = 50;
-                System.out.println(codingmon.getEnemyname() + " was hit for 50!");
-            } else if (choice == 3 && selfAttackChance < 50) {
-                damageamount = 75;
-                System.out.println(codingmon.getEnemyname() + " was hit for 75!");
-            } else if ((choice == 1 && selfAttackChance > 25) || (choice == 3 && selfAttackChance > 50) || (choice == 2 && selfAttackChance > 75)) {
-                System.out.println(codingmon.getName() + " missed his attack! :(");
+            if (choice == 1) {
+                damageAmount = playerCodingmon.attack(wildCodingmon);
+                System.out.println(wildCodingmon.getName() + " was hit for " + damageAmount + "!");
             } else {
-                System.out.println("Put the right number pls");
+                System.out.println("Invalid move! Please choose a valid action.");
                 continue;
             }
 
-            codingmon.setEnemyhp(codingmon.getEnemyhp() - damageamount);
+            wildCodingmon.setHp(wildCodingmon.getHp() - damageAmount);
 
-            if (codingmon.getEnemyhp() <= 0) {
-                System.out.println(codingmon.getEnemyname() + " got CLAPPED!");
+            if (wildCodingmon.getHp() <= 0) {
+                System.out.println(wildCodingmon.getName() + " fainted!");
                 break;
             }
 
             int enemyAttackChance = rand.nextInt(100);
             if (enemyAttackChance < 50) {
                 int enemyDamage = rand.nextInt(50) + 50;
-                System.out.println(codingmon.getName() + " was hit for " + enemyDamage);
-                codingmon.setHp(codingmon.getHp() - enemyDamage);
+                System.out.println(playerCodingmon.getName() + " was hit for " + enemyDamage);
+                playerCodingmon.setHp(playerCodingmon.getHp() - enemyDamage);
             } else {
-                System.out.println(codingmon.getEnemyname() + " slipped on a banana!");
+                System.out.println(wildCodingmon.getName() + " missed its attack!");
             }
 
-            if (codingmon.getHp() <= 0) {
-                System.out.println(codingmon.getName() + " got CLAPPED!");
+            if (playerCodingmon.getHp() <= 0) {
+                System.out.println(playerCodingmon.getName() + " fainted!");
                 break;
             }
         }
     }
 }
+
