@@ -1,44 +1,64 @@
+import java.util.Random;
+import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        Random rand = new Random();
 
-        //Create object for subclass pikachu
-        Pikachu pikachu = new Pikachu(5);
+        // Ensure Pikachu and Charmander are recognized properly.
+        Codingmon playerCodingmon = new Pikachu();  // Using the Pikachu constructor
+        Codingmon wildCodingmon = new Charmander();  // Using the Charmander constructor
 
-        //Welcome Trainer
-        System.out.println("Welcome trainer to Codingmon! Your goal is to beat three pokemon good luck!");
-        System.out.println("Your pokemon: ");
-        //Show Pikachu's information
-        Pikachu playersPikachu = new Pikachu(5);
-        pikachu.displayInfo();
+        // Battle loop
+        while (playerCodingmon.getHp() > 0 && wildCodingmon.getHp() > 0) {
+            System.out.println(playerCodingmon.getName() + "'s turn, Choose a move by entering 1, 2, or 3.");
+            int choice = input.nextInt();
+            int selfAttackChance = rand.nextInt(100);
+            int damageamount = 0;
 
-        //asks player if they want to enter forest route to start their journey
-        System.out.println("Do you want to enter a route? (yes/no): ");
-        String journeyBegins = scanner.nextLine();
+            // Player's attack logic
+            if (choice == 1 && selfAttackChance < 25) {
+                damageamount = 100;
+                System.out.println(wildCodingmon.getName() + " was hit for 100!");
+            } else if (choice == 2 && selfAttackChance < 75) {
+                damageamount = 50;
+                System.out.println(wildCodingmon.getName() + " was hit for 50!");
+            } else if (choice == 3 && selfAttackChance < 50) {
+                damageamount = 75;
+                System.out.println(wildCodingmon.getName() + " was hit for 75!");
+            } else {
+                System.out.println("You missed your attack! :(");
+            }
 
-        if (journeyBegins.equalsIgnoreCase("yes")) {
-            System.out.println("You are walking into the forest...");
-            System.out.println("A wild Charmander appears!");
+            wildCodingmon.setHp(wildCodingmon.getHp() - damageamount);
 
-            //create wild charmander
-            Charmander wildCharmander = new Charmander(5);
-            wildCharmander.displayInfo();
-            wildCharmander.battleCry();
+            if (wildCodingmon.getHp() <= 0) {
+                System.out.println(wildCodingmon.getName() + " got CLAPPED!");
+                break;
+            }
 
-            //create instance for battle between the players pokemon and the wild charmander
-            Battle battleInstance = new Battle();
+            // Wild Codingmon attacks back
+            int enemyAttackChance = rand.nextInt(100);
+            if (enemyAttackChance < 50) {
+                int enemyDamage = rand.nextInt(50) + 50;
+                System.out.println(playerCodingmon.getName() + " was hit for " + enemyDamage);
+                playerCodingmon.setHp(playerCodingmon.getHp() - enemyDamage);
+            } else {
+                System.out.println(wildCodingmon.getName() + " missed its attack!");
+            }
 
-            //start battle
-            battleInstance.battle(playersPikachu, wildCharmander);
+            if (playerCodingmon.getHp() <= 0) {
+                System.out.println(playerCodingmon.getName() + " got CLAPPED!");
+                break;
+            }
 
-        } else {
-            System.out.println("You decided not to start your journey and now you spend the rest of your life flipping" +
-                    " patties");
+            // Battle cry at the end of the turn
+            playerCodingmon.battleCry();
+            wildCodingmon.battleCry();
         }
-        scanner.close();
+
+        input.close();
     }
-
-
 }
-//Benito
