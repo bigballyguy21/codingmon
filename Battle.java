@@ -29,4 +29,3 @@ public class Battle {
         System.out.println("Battle Over!");
     }
 }
-
