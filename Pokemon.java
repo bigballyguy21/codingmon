@@ -1,9 +1,7 @@
-import java.awt.desktop.OpenFilesEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pokemon {
-    //Instance variables
     String name;
     int lvl;
     String type;
@@ -11,9 +9,9 @@ public class Pokemon {
     int attack;
     int defense;
     int speed;
-    List<Move> moves = new ArrayList<>(); //declares and initializes list for pokemon moves
+    List<Move> moves = new ArrayList<>();
 
-    //Constructor
+    // Constructor
     public Pokemon(String pokemonName, int pokemonLvl, String pokemonType, int pokemonHp, int pokemonAttack,
                    int pokemonDefense, int pokemonSpeed) {
         this.name = pokemonName;
@@ -25,12 +23,10 @@ public class Pokemon {
         this.speed = pokemonSpeed;
     }
 
-    //Method to show what pokemon the trainer encountered
     public void battleCry() {
-        System.out.println(name + " us ready for battle!");
+        System.out.println(name + " is ready for battle!");
     }
 
-    //Method to show pokemons information
     public void displayInfo() {
         System.out.println("Name: " + name);
         System.out.println("Level: " + lvl);
@@ -41,24 +37,22 @@ public class Pokemon {
         System.out.println("Speed: " + speed);
     }
 
-    //getter to get the name of the pokemon
     public String getName() {
         return name;
     }
-    //getter to get the hp of the pokemon
+
     public int getHp() {
         return hp;
     }
-    //Method to calculate damage done from the pokemon
-    public int calculateDamage(Pokemon opponent){
+
+    public int attack(Pokemon opponent) {
         int baseDamage = this.attack - opponent.defense;
         if (baseDamage < 0) {
-            return 0; //prevents negative damage
+            return 0;
         }
         return baseDamage;
     }
 
-    //method for a leveling up system
     public void levelUp() {
         lvl++;
         attack += 5;
@@ -68,24 +62,21 @@ public class Pokemon {
         System.out.println(name + " leveled up to level " + lvl + "!");
     }
 
-    //method to add moves to the list
-    public void addMove(Move move){
+    public void addMove(Move move) {
         moves.add(move);
     }
 
-    //method for pokemon to use moves
     public void useMove(int moveIndex, Pokemon opponent) {
         if (moveIndex >= 0 && moveIndex < moves.size()) {
             Move move = moves.get(moveIndex);
             System.out.println(name + " uses " + move.name + "!");
             int damage = move.power - opponent.defense;
             opponent.hp -= damage;
-            System.out.println("It dealt  + " + damage + " damage!");
+            System.out.println("It dealt " + damage + " damage!");
             if (opponent.hp <= 0) {
                 opponent.hp = 0;
                 System.out.println(opponent.name + " fainted");
             }
-
         }
     }
 }
