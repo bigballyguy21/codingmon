@@ -1,12 +1,11 @@
 public class Pikachu extends Codingmon {
-
     public Pikachu() {
-        super("Pikachu", 100, 25);  // Calls the constructor of the parent class Codingmon
+        // Calls the parent constructor with specific values for Pikachu
+        super("Pikachu", 100, 20);  // Example values for Pikachu's HP and attackPower
     }
 
-    // Optionally, you can override methods or add specific behavior for Pikachu here
     @Override
     public void battleCry() {
-        System.out.println("Pikachu uses Thunderbolt!");
+        System.out.println("Pikachu shouts: Pika-Pika!");
     }
 }
