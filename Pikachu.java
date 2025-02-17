@@ -1,15 +1,22 @@
-class Pikachu extends Pokemon {
-    //Contructor for Pikachu
-    public Pikachu(int level) {
-        //call the superclass contructor
-        super("Pikachu", level, "Electric", 30, 20, 15,
-                20);
-        addMove(new Move("Nuzzle", 40, "Electric"));
-        addMove(new Move("Quick Attack", 30, "Normal"));
+public class Pikachu extends Codingmon {
+    private String specialAbility;
+
+    public Pikachu() {
+        super("Pikachu", 100, 20);
+        this.specialAbility = "Thunderbolt";
     }
 
-    //Override the battlecry method for pikachu
-    public void battleCry() {
-        System.out.println(name + " says: Pika Pika!");
+    @Override
+    public int attack(Codingmon target) {
+        System.out.println("Pikachu used " + specialAbility + "!");
+        return super.attack(target);
+    }
+
+    public void useSpecialAbility() {
+        System.out.println("Pikachu used " + specialAbility + "! It's super effective!");
+    }
+
+    public String getSpecialAbility() {
+        return specialAbility;
     }
 }
